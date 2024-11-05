@@ -206,8 +206,10 @@ local make_teleporter_gui = function(player, source)
 
   local sorted = {}
   local i = 1
+  local player_location = player.surface.name
   for name, teleporter in pairs (network) do
-    if teleporter.teleporter.valid then
+    local teleport_location = teleporter.teleporter.surface.planet.name
+    if teleporter.teleporter.valid and (settings.global["teleport_everywhere"].value or teleport_location == player_location) then
       sorted[i] = {name = name, teleporter = teleporter, unit_number = teleporter.teleporter.unit_number}
       i = i + 1
     else
